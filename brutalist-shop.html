@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ФОРМА — одежда</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000;
+    --white: #fff;
+    --gray: #888;
+    --light: #f0f0f0;
+  }
+
+  body {
+    font-family: 'Arial Black', 'Arial', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  /* === HEADER === */
+  header {
+    border-bottom: 4px solid var(--black);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0;
+  }
+
+  .header-left {
+    border-right: 2px solid var(--black);
+    padding: 16px 24px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .logo {
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -4px;
+    line-height: 1;
+    border-right: 2px solid var(--black);
+  }
+
+  .header-right {
+    padding: 16px 24px;
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  header a {
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  header a:hover { text-decoration: underline; }
+
+  .cart-btn {
+    border: 2px solid var(--black);
+    padding: 6px 14px;
+    cursor: pointer;
+    background: var(--white);
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.1s, color 0.1s;
+    cursor: pointer;
+  }
+
+  .cart-btn:hover { background: var(--black); color: var(--white); }
+
+  /* === NAV === */
+  nav {
+    border-bottom: 2px solid var(--black);
+    display: flex;
+    overflow-x: auto;
+  }
+
+  nav a {
+    display: block;
+    padding: 14px 28px;
+    text-decoration: none;
+    color: var(--black);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+    border-right: 1px solid var(--black);
+    transition: background 0.1s;
+  }
+
+  nav a:hover, nav a.active {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* === HERO === */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+    border-bottom: 4px solid var(--black);
+  }
+
+  .hero-text {
+    padding: 60px 48px;
+    border-right: 4px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 900;
+    letter-spacing: -6px;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  .hero-title span {
+    display: block;
+    -webkit-text-stroke: 2px var(--black);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    max-width: 340px;
+    line-height: 1.6;
+    margin-top: 32px;
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 40px;
+    background: var(--black);
+    color: var(--white);
+    padding: 18px 40px;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    align-self: flex-start;
+    transition: background 0.1s, color 0.1s;
+    border: 2px solid var(--black);
+  }
+
+  .hero-cta:hover { background: var(--white); color: var(--black); }
+
+  .hero-image {
+    background: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  /* Brutalist fashion silhouette SVG */
+  .hero-placeholder svg {
+    width: 200px;
+    opacity: 0.12;
+  }
+
+  .hero-label {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    writing-mode: vertical-rl;
+  }
+
+  .hero-season {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    border: 1px solid var(--black);
+    padding: 6px 12px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* === SECTION HEADER === */
+  .section-header {
+    border-bottom: 2px solid var(--black);
+    padding: 20px 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 4px solid var(--black);
+  }
+
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .section-count {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  /* === PRODUCT GRID === */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .product-card {
+    border-right: 1px solid var(--black);
+    border-bottom: 1px solid var(--black);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .product-card:nth-child(4n) { border-right: none; }
+
+  .product-card:hover { background: var(--light); }
+
+  .product-image {
+    aspect-ratio: 3/4;
+    background: var(--light);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card:hover .product-image {
+    background: #ddd;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--black);
+    color: var(--white);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+
+  .product-info {
+    padding: 16px 20px;
+  }
+
+  .product-number {
+    font-size: 9px;
+    color: var(--gray);
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
+
+  .product-name {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .product-material {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+  }
+
+  .product-price {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .product-sizes {
+    display: flex;
+    gap: 4px;
+  }
+
+  .size-dot {
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+
+  .size-dot.sold { border-color: #ccc; color: #ccc; }
+
+  /* === MARQUEE STRIP === */
+  .marquee-strip {
+    background: var(--black);
+    color: var(--white);
+    padding: 12px 0;
+    border-top: 2px solid var(--black);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 18s linear infinite;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* === SIDEBAR SECTION === */
+  .sidebar-section {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    border-top: 4px solid var(--black);
+    border-bottom: 4px solid var(--black);
+  }
+
+  .featured-item {
+    padding: 48px;
+    border-right: 4px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px;
+  }
+
+  .featured-tag {
+    display: inline-block;
+    border: 1px solid var(--black);
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+
+  .featured-name {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    line-height: 0.95;
+    margin-top: 24px;
+  }
+
+  .featured-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #333;
+    max-width: 480px;
+    margin-top: 20px;
+    font-weight: 400;
+  }
+
+  .featured-price-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .featured-price {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -2px;
+  }
+
+  .featured-add {
+    border: 2px solid var(--black);
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 28px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .featured-add:hover { background: var(--white); color: var(--black); }
+
+  .sidebar-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-block {
+    padding: 24px;
+    border-bottom: 1px solid var(--black);
+    flex: 1;
+  }
+
+  .sidebar-block-title {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 12px;
+  }
+
+  .sidebar-block-text {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .delivery-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+
+  .delivery-row span:last-child { font-weight: 700; }
+
+  /* === FOOTER === */
+  footer {
+    border-top: 4px solid var(--black);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+
+  .footer-block {
+    padding: 40px 32px;
+    border-right: 1px solid var(--black);
+  }
+
+  .footer-block:last-child { border-right: none; }
+
+  .footer-logo {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -3px;
+    margin-bottom: 16px;
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+    max-width: 220px;
+  }
+
+  .footer-title {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 8px;
+  }
+
+  .footer-links a {
+    color: var(--black);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .footer-links a:hover { text-decoration: underline; }
+
+  .footer-bottom {
+    border-top: 2px solid var(--black);
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* === SEARCH BAR === */
+  .search-bar {
+    border-bottom: 2px solid var(--black);
+    display: flex;
+  }
+
+  .search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 24px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: inherit;
+    background: var(--white);
+  }
+
+  .search-bar input::placeholder { color: var(--gray); }
+
+  .search-bar button {
+    border: none;
+    border-left: 2px solid var(--black);
+    background: var(--white);
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .search-bar button:hover { background: var(--black); color: var(--white); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-card:nth-child(4n) { border-right: 1px solid var(--black); }
+    .product-card:nth-child(2n) { border-right: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { min-height: 300px; }
+    .hero-text { border-right: none; border-bottom: 4px solid var(--black); }
+    .sidebar-section { grid-template-columns: 1fr; }
+    .sidebar-info { border-top: 2px solid var(--black); }
+    footer { grid-template-columns: 1fr 1fr; }
+    .footer-block { border-bottom: 1px solid var(--black); }
+    header { grid-template-columns: 1fr auto; }
+    .header-left { display: none; }
+    .logo { border-right: none; }
+  }
+
+  @media (max-width: 540px) {
+    .product-grid { grid-template-columns: 1fr; }
+    .product-card:nth-child(2n) { border-right: 1px solid var(--black); }
+    footer { grid-template-columns: 1fr; }
+    .hero-title { letter-spacing: -3px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <input type="text" placeholder="Поиск по каталогу...">
+  <button>→ Найти</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    Москва &nbsp;·&nbsp; Пн–Вс 10:00–22:00
+  </div>
+  <div class="logo">ФОРМА</div>
+  <div class="header-right">
+    <a href="#">О нас</a>
+    <a href="#">Профиль</a>
+    <button class="cart-btn">Корзина (0)</button>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="active">Всё</a>
+  <a href="#">Верхняя одежда</a>
+  <a href="#">Куртки</a>
+  <a href="#">Брюки</a>
+  <a href="#">Футболки</a>
+  <a href="#">Аксессуары</a>
+  <a href="#">Новинки</a>
+  <a href="#">Архив</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div>
+      <p class="hero-eyebrow">Коллекция — Осень/Зима 2025</p>
+      <h1 class="hero-title">
+        ВЕЩЬ<br>
+        <span>КАК</span><br>
+        ФОРМА
+      </h1>
+      <p class="hero-sub">Одежда без лишнего. Каждый крой — решение задачи. Каждый шов — на своём месте.</p>
+    </div>
+    <a href="#" class="hero-cta">Смотреть коллекцию →</a>
+  </div>
+  <div class="hero-image">
+    <div class="hero-placeholder">
+      <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 20 C80 20 60 30 50 50 L30 90 L60 95 L55 280 L145 280 L140 95 L170 90 L150 50 C140 30 120 20 100 20Z" fill="black"/>
+        <circle cx="100" cy="12" r="12" fill="black"/>
+        <path d="M65 95 L65 140 L50 140 L50 95Z" fill="black"/>
+        <path d="M135 95 L135 140 L150 140 L150 95Z" fill="black"/>
+      </svg>
+    </div>
+    <div class="hero-season">СЗ-25</div>
+    <div class="hero-label">Лимитированная серия</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <span class="marquee-inner">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    НОВАЯ КОЛЛЕКЦИЯ &nbsp;·&nbsp; БЕСПЛАТНАЯ ДОСТАВКА ОТ 8 000 ₽ &nbsp;·&nbsp; ВОЗВРАТ В ТЕЧЕНИЕ 30 ДНЕЙ &nbsp;·&nbsp; НАТУРАЛЬНЫЕ ТКАНИ &nbsp;·&nbsp; ПРОИЗВОДСТВО — РОССИЯ &nbsp;·&nbsp;
+    НОВАЯ КОЛЛЕКЦИЯ &nbsp;·&nbsp; БЕСПЛАТНАЯ ДОСТАВКА ОТ 8 000 ₽ &nbsp;·&nbsp; ВОЗВРАТ В ТЕЧЕНИЕ 30 ДНЕЙ &nbsp;·&nbsp; НАТУРАЛЬНЫЕ ТКАНИ &nbsp;·&nbsp; ПРОИЗВОДСТВО — РОССИЯ &nbsp;·&nbsp;
+  </span>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section-header">
+  <span class="section-title">— Каталог</span>
+  <span class="section-count">24 позиции</span>
+</div>
+
+<div class="product-grid">
+
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge">Новинка</span>
+      ИЗО / 001
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 001-ОС25</p>
+      <p class="product-name">Пальто Архив</p>
+      <p class="product-material">100% шерсть</p>
+      <div class="product-bottom">
+        <span class="product-price">24 900 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">XS</div>
+          <div class="size-dot">S</div>
+          <div class="size-dot sold">M</div>
+          <div class="size-dot">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      ИЗО / 002
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 002-ОС25</p>
+      <p class="product-name">Куртка Блок</p>
+      <p class="product-material">Хлопок + нейлон</p>
+      <div class="product-bottom">
+        <span class="product-price">14 500 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot">L</div>
+          <div class="size-dot">XL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge">−20%</span>
+      ИЗО / 003
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 003-ОС25</p>
+      <p class="product-name">Брюки Прямые</p>
+      <p class="product-material">Шерсть + вискоза</p>
+      <div class="product-bottom">
+        <span class="product-price">9 600 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">XS</div>
+          <div class="size-dot">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot sold">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      ИЗО / 004
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 004-ОС25</p>
+      <p class="product-name">Рубашка Ткань</p>
+      <p class="product-material">100% хлопок</p>
+      <div class="product-bottom">
+        <span class="product-price">6 900 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">XS</div>
+          <div class="size-dot">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge">Мало</span>
+      ИЗО / 005
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 005-ОС25</p>
+      <p class="product-name">Свитер Грубый</p>
+      <p class="product-material">Шерсть мериноса</p>
+      <div class="product-bottom">
+        <span class="product-price">11 200 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot sold">XS</div>
+          <div class="size-dot sold">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot sold">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      ИЗО / 006
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 006-ОС25</p>
+      <p class="product-name">Жилет Объём</p>
+      <p class="product-material">Лён + хлопок</p>
+      <div class="product-bottom">
+        <span class="product-price">8 400 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot">L</div>
+          <div class="size-dot">XL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      ИЗО / 007
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 007-ОС25</p>
+      <p class="product-name">Юбка Конус</p>
+      <p class="product-material">Плотный хлопок</p>
+      <div class="product-bottom">
+        <span class="product-price">7 800 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">XS</div>
+          <div class="size-dot">S</div>
+          <div class="size-dot">M</div>
+          <div class="size-dot">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge">Новинка</span>
+      ИЗО / 008
+    </div>
+    <div class="product-info">
+      <p class="product-number">АРТ. 008-ОС25</p>
+      <p class="product-name">Тренч Длинный</p>
+      <p class="product-material">Хлопок-габардин</p>
+      <div class="product-bottom">
+        <span class="product-price">19 900 ₽</span>
+        <div class="product-sizes">
+          <div class="size-dot">XS</div>
+          <div class="size-dot">S</div>
+          <div class="size-dot sold">M</div>
+          <div class="size-dot">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FEATURED SIDEBAR -->
+<div class="sidebar-section">
+  <div class="featured-item">
+    <div>
+      <span class="featured-tag">Выбор редакции</span>
+      <h2 class="featured-name">ПАЛЬТО<br>СТРУКТУРА</h2>
+      <p class="featured-desc">
+        Оверсайз-крой с усиленными плечами и двойным бортом. 
+        Шерсть 70% / кашемир 30%. Подкладка — натуральный шёлк. 
+        Четыре глубоких кармана. Разрез сзади. Сделано в Москве.
+      </p>
+    </div>
+    <div class="featured-price-row">
+      <span class="featured-price">38 500 ₽</span>
+      <button class="featured-add">+ В корзину</button>
+    </div>
+  </div>
+  <div class="sidebar-info">
+    <div class="sidebar-block">
+      <p class="sidebar-block-title">— Состав</p>
+      <p class="sidebar-block-text">Шерсть 70%, кашемир 30%, подкладка — шёлк 100%.</p>
+    </div>
+    <div class="sidebar-block">
+      <p class="sidebar-block-title">— Уход</p>
+      <p class="sidebar-block-text">Химчистка. Хранить на широких плечиках. Не отжимать.</p>
+    </div>
+    <div class="sidebar-block">
+      <p class="sidebar-block-title">— Доставка</p>
+      <div class="delivery-row"><span>Курьер (Москва)</span><span>1–2 дня</span></div>
+      <div class="delivery-row"><span>СДЭК (РФ)</span><span>3–7 дней</span></div>
+      <div class="delivery-row"><span>Самовывоз</span><span>Завтра</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-block">
+    <div class="footer-logo">ФОРМА</div>
+    <p class="footer-tagline">Одежда — это решение задачи. Мы делаем вещи, которые работают.</p>
+  </div>
+  <div class="footer-block">
+    <p class="footer-title">— Магазин</p>
+    <ul class="footer-links">
+      <li><a href="#">Каталог</a></li>
+      <li><a href="#">Новинки</a></li>
+      <li><a href="#">Архив</a></li>
+      <li><a href="#">Подарочные карты</a></li>
+    </ul>
+  </div>
+  <div class="footer-block">
+    <p class="footer-title">— Сервис</p>
+    <ul class="footer-links">
+      <li><a href="#">Доставка и возврат</a></li>
+      <li><a href="#">Размерная сетка</a></li>
+      <li><a href="#">Уход за вещами</a></li>
+      <li><a href="#">Контакты</a></li>
+    </ul>
+  </div>
+  <div class="footer-block">
+    <p class="footer-title">— О бренде</p>
+    <ul class="footer-links">
+      <li><a href="#">Манифест</a></li>
+      <li><a href="#">Производство</a></li>
+      <li><a href="#">Пресса</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 ФОРМА. Все права защищены.</span>
+  <span>ИНН 7701234567 &nbsp;·&nbsp; Политика конфиденциальности</span>
+</div>
+
+</body>
+</html>
